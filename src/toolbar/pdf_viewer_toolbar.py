@@ -9,7 +9,7 @@ class PdfViewerToolbar(tk.Frame):
         self.buttons = {}
 
         # 仅添加工具栏项目的核心子集以简化 UI
-        core_items = [PdfViewerToolbarItem.Translate]
+        core_items = []
         for item in core_items:
             self.add_button(item)
 
@@ -22,14 +22,6 @@ class PdfViewerToolbar(tk.Frame):
 
         self.kg_button = tk.Button(self, text="Generate KG", command=lambda: self.generate_kg())
         self.kg_button.pack(side='right', padx=2, pady=2)
-
-        # 导出当前页面的翻译（原文 + 译文）
-        self.export_translations_button = tk.Button(self, text="Export Translations", command=lambda: self.export_translations())
-        self.export_translations_button.pack(side='right', padx=2, pady=2)
-
-        # 显示渲染为图像的翻译（如果 Tk 无法渲染 CJK 字体，这很有用）
-        self.show_trans_image_button = tk.Button(self, text="Show Translations Image", command=lambda: self.show_translations_image())
-        self.show_trans_image_button.pack(side='right', padx=2, pady=2)
 
         # 保持稳定的项目列表以进行键盘快捷键映射
         self.items = core_items
@@ -64,12 +56,6 @@ class PdfViewerToolbar(tk.Frame):
     
     def export(self):
         self.event_generate("<<ExportButtonClicked>>", when="tail")
-
-    def export_translations(self):
-        self.event_generate("<<ExportTranslationsClicked>>", when="tail")
-
-    def show_translations_image(self):
-        self.event_generate("<<ShowTranslationsImageClicked>>", when="tail")
 
     def generate_kg(self):
         self.event_generate("<<GenerateKGButtonClicked>>", when="tail")

@@ -30,7 +30,6 @@ class PdfElement:
         self.children = children
         self.safe = True
         self.visible = True
-        self.translated = None
         self.__body = True
         self.contd = None           # continued
         self.marked = False
@@ -115,9 +114,6 @@ class PdfElement:
 
     def can_be_merged(self):
         return self.type == PdfElementType.Text or self.type == PdfElementType.Line
-
-    def can_be_translated(self):
-        return (self.type == PdfElementType.Text or self.type == PdfElementType.Line) and self.translated is None
 
     def can_be_split(self):
         return self.children != None and len(self.children) > 1

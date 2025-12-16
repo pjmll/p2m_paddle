@@ -205,7 +205,8 @@ def main():
         
         markdown_generator = MarkdownGenerator()
         try:
-            markdown_content = markdown_generator.generate_markdown_with_options(original_text, use_ai=True, timeout=90)
+            # 增加超时时间到 300秒
+            markdown_content = markdown_generator.generate_markdown_with_options(original_text, use_ai=True, timeout=300)
             output_path.write_text(markdown_content, encoding="utf-8")
             print(f"Structured Markdown saved to: {output_path}")
         except Exception as exc:

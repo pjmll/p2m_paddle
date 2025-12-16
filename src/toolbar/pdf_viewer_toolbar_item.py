@@ -9,7 +9,6 @@ class PdfViewerToolbarItem(Enum):
     JoinAndSplit = auto(), "Join / Split"
     Order = auto(), "Order"
     Concat = auto(), "Chain"
-    Translate = auto(), "Translate"
     Export = auto(), "Export MD"
     GenerateKG = auto(), "Generate KG"
 

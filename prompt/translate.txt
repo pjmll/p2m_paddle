@@ -1,8 +1,0 @@
-# Instruction
-The following paragraph is part of an academic paper.
-Translate it into Chinese using a qwen3-max compatible model.
-
-# Text
-{Text}
-
-# Translation

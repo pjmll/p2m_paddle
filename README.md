@@ -70,18 +70,14 @@ python -m src.main --f /path/to/document.pdf
 ## 界面操作速览
 
 - **Safe Area**：拖动红框限定整篇文档的有效内容区域。
-- **Body**：点击段落切换是否视为正文，直接影响翻译和导出结果。
+- **Body**：点击段落切换是否视为正文，直接影响导出结果。
 - **Order**：先选锚点再点击其他段落，可调整阅读顺序。
-- **Translate**：点击段落触发翻译，译文会插入到右侧文本窗。
 - **Export MD**：基于当前可见正文生成结构化 Markdown。
-- **Export Translations**：导出当前页的原文/译文 HTML。
-- **Show Translations Image**：生成包含译文的 PNG 预览，解决字体兼容问题。
 - **Generate KG**：读取最近导出的 Markdown，生成知识图谱 HTML。
 
 ## 输出位置
 
 - Markdown：`<EXPORT_DIR>/<pdf-name>_structured.md`
-- 翻译 HTML：`<EXPORT_DIR>/<pdf-name>_page<index>_translations.html`
 - 知识图谱：`<EXPORT_DIR>/<pdf-name>_knowledge_graph.html`
 
 解析缓存存放于 `CACHE_DIR`，可手动删除或使用 `--i` 参数刷新。
@@ -106,4 +102,4 @@ python -m src.main --f /home/lrj/下载/p2d/3.pdf
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 .\.venv_win\Scripts\Activate.ps1
 
-python -m src.main --f D:\p2m\3.pdf --i --auto_export
+python -m src.main --f D:\p2m\新时代中国特色社会主义理论与实践（2024年版）_27-59.pdf

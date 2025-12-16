@@ -115,7 +115,7 @@ class Pdf:
 
     def _ocr_page_to_elements(self, page_number, page_image, ocr_processor, page_width, page_height):
         """使用大模型OCR识别图像中的文本块并创建 PdfElement"""
-        print(f"Page {page_number}: Processing with OCR via LLM...")
+        print(f"Page {page_number}: Processing with OCR...")
 
         blocks = ocr_processor.extract_blocks(page_image, lang='auto')
         if not blocks:
@@ -270,15 +270,12 @@ class Pdf:
                 if self.to_chain.get(key) is not None:
                     if self.to_chain[key] == key:
                         # 它是链的头部
-                        if element.translated is not None:
-                            text += element.translated + "\n"
-                        else:
-                            text += self.chains[key][1] + "\n"
+                        text += self.chains[key][1] + "\n"
                     else:
                         # 它是链的延续
                         pass
                 else:
-                    text += element.translated if element.translated is not None else element.text
+                    text += element.text
                     text += "\n"
             else:
                 if not element.body:
@@ -297,15 +294,12 @@ class Pdf:
                 if self.to_chain.get(key) is not None:
                     if self.to_chain[key] == key:
                         # 它是链的头部
-                        if element.translated is not None:
-                            text += element.translated + "\n"
-                        else:
-                            text += self.chains[key][1] + "\n"
+                        text += self.chains[key][1] + "\n"
                     else:
                         # 它是链的延续
                         pass
                 else:
-                    text += element.translated if element.translated is not None else element.text
+                    text += element.text
                     text += "\n"
 
         return text
@@ -473,11 +467,3 @@ class Pdf:
     
     def save(self):
         self.context.save_to_pickle(self.intm_path)
-
-    def can_be_translated(self, key):
-        if self.to_chain.get(key) is None:
-            e = self.get_element(key)
-            return e.can_be_translated() if e is not None else False
-        else:
-            head = self.chains[self.to_chain[key]][0]
-            return head.can_be_translated() if head is not None else False

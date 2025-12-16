@@ -378,7 +378,10 @@ class KnowledgeGraphGenerator:
         
         # 保存HTML文件
         html_path = output_dir / f"{base_name}_knowledge_graph.html"
-        net.save_graph(str(html_path))
+        # net.save_graph(str(html_path))
+        # 使用 utf-8 编码手动保存，避免 Windows 下 gbk 编码错误
+        with open(html_path, "w", encoding="utf-8") as f:
+            f.write(net.generate_html())
         
         return str(html_path)
     
@@ -392,6 +395,15 @@ class KnowledgeGraphGenerator:
         Returns:
             完整的prompt
         """
+        # 尝试从文件读取 prompt
+        prompt_path = Path("prompt/extract_knowledge_graph.txt")
+        if prompt_path.exists():
+            try:
+                template = prompt_path.read_text(encoding="utf-8")
+                return template.format(markdown_content=markdown_content)
+            except Exception as e:
+                print(f"读取 prompt 文件失败: {e}，使用默认 prompt")
+
         prompt = f"""你是一个知识提取引擎。你的任务是从给定的 Markdown 文档中识别出核心的实体（Entities）和它们之间的关系（Relationships），并以严格的 JSON 格式输出。
 
 **重要：你的回复必须是一个有效的JSON对象，不要包含任何其他文本、解释、换行符或格式标记。**
